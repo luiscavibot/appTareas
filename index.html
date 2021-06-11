@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Document</title>
+		<style>
+			h1 {
+				color: white;
+				background: black;
+				display: inline-block;
+			}
+			input,
+			button {
+				border-radius: 8px;
+				border-width: 2px;
+			}
+			input {
+				padding: 8px;
+			}
+			button {
+				height: 35px;
+				cursor: pointer;
+			}
+
+			li {
+				margin-top: 5px;
+			}
+
+			ul li button {
+				height: 20px;
+				margin-left: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<h1 style="width: 100%">App de gestión de tareas</h1>
+		<form id="formularioTareas">
+			<input placeholder="Título de tarea" id="tituloTarea" />
+			<input placeholder="Descripción" id="descripcionTarea" />
+			<button type="submit">Guardar tarea</button>
+		</form>
+		<div>
+			<ul id="listaTareas"></ul>
+		</div>
+		<script>
+			// const $formularioTareas = document.querySelector("#formularioTareas");
+			const listaTareas = document.querySelector("#listaTareas");
+
+			document.querySelector("#formularioTareas").addEventListener("submit", guardarTarea);
+
+			function guardarTarea(e) {
+				e.preventDefault();
+
+				let tituloTarea = document.querySelector("#tituloTarea").value;
+				let descripcionTarea = document.querySelector("#descripcionTarea").value;
+				let tarea = {
+					tituloTarea,
+					descripcionTarea,
+				};
+
+				if (localStorage.getItem("tareas") === null) {
+					let tareas = [];
+					tareas.push(tarea);
+					localStorage.setItem("tareas", JSON.stringify(tareas));
+				} else {
+					let tareas = JSON.parse(localStorage.getItem("tareas"));
+					tareas.push(tarea);
+					localStorage.setItem("tareas", JSON.stringify(tareas));
+				}
+				obtenerTareas();
+			}
+
+			function obtenerTareas() {
+				let tareas = JSON.parse(localStorage.getItem("tareas"));
+				listaTareas.innerHTML = "";
+				for (let index = 0; index < tareas.length; index++) {
+					let titulo = tareas[index].tituloTarea;
+					let descripcion = tareas[index].descripcionTarea;
+					listaTareas.innerHTML += `<li>${titulo}=>${descripcion}</li>`;
+				}
+			}
+
+			obtenerTareas();
+		</script>
+	</body>
+</html>
