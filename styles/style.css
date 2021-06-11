@@ -1,0 +1,33 @@
+body {
+	margin: 0;
+}
+h1 {
+	color: white;
+	background: rgb(77, 15, 15);
+	display: inline-block;
+	margin-top: 0;
+}
+input,
+button {
+	border-radius: 8px;
+	border-width: 2px;
+}
+input {
+	padding: 8px;
+}
+button {
+	height: 35px;
+	cursor: pointer;
+}
+
+li {
+	margin-top: 5px;
+}
+
+ul li button {
+	height: 20px;
+	margin-left: 5px;
+}
+form {
+	margin: 4px;
+}
